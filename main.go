@@ -28,17 +28,17 @@ func main() {
 	fmt.Print("Ingresa la cantidad de cuotas: ")
 	fmt.Scan(&numberOfPayments)
 
-	fmt.Println("")
-	fmt.Println("La información que ingresaste es: ")
-	p.Printf("Valor del crédito: $%.0f\n", principal)
-	fmt.Println("Tasa de interés mensual %:", monthlyInterestRate)
-	fmt.Printf("Tasa de interés efectiva anual %%: %.2f\n", annualInterestRate)
-	fmt.Println("Cantidad de cuotas:", numberOfPayments)
-	fmt.Println("")
+	resultsCommunication(principal, monthlyInterestRate, numberOfPayments)
 
 	//annualInterestRate := convertMmonthlyInterestRate * 12 // Convert annual interest rate to monthly
 	monthlyPayment := calculatePayment(principal, convertMonthlyInterestRate, numberOfPayments)
+
+	fmt.Println("RESULTADOS")
+	fmt.Printf("Tasa de interés efectiva anual %%: %.2f\n", annualInterestRate)
 	p.Printf("El pago mensual sería: $%.0f\n", monthlyPayment)
+	fmt.Println("")
+
+	feesData(principal, numberOfPayments, convertMonthlyInterestRate, monthlyPayment)
 
 	// Pause execution until the user presses Enter
 	fmt.Println("")
