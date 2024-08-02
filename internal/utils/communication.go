@@ -1,9 +1,9 @@
-package main
+package utils
 
 import "fmt"
 
 // Communication of results
-func resultsCommunication(principal float64, monthlyInterestRate float64, numberOfPayments int) {
+func ResultsCommunication(principal float64, monthlyInterestRate float64, numberOfPayments int) {
 	fmt.Println("")
 	fmt.Println("La información que ingresaste es: ")
 	p.Printf("Valor del crédito: $%.0f\n", principal)

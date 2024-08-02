@@ -9,27 +9,30 @@
 <body>  
     <div class="container mt-3">
         <h2>Simulador de Crédito</h2>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-4 col-form-label">Ingresa el valor del crédito (préstamo)</label>
-            <div class="col-sm-8">
-              <input type="number" class="form-control" id="inputPassword">
+        <form action="/calculate" method="post">
+            <div class="mb-2 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">Ingresa el valor del crédito (préstamo)</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control" id="inputValue" name="inputValue">
+                </div>
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-4 col-form-label">Ingresa la tasa de interés mensual</label>
-            <div class="col-sm-8">
-              <input type="number" class="form-control" id="inputPassword">
+            <div class="mb-2 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">Ingresa la tasa de interés mensual</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control" id="inputPassword">
+                </div>
             </div>
-        </div>
-        <div class="mb-3 row">
-            <label for="inputPassword" class="col-sm-4 col-form-label">Ingresa la cantidad de cuotas</label>
-            <div class="col-sm-8">
-              <input type="number" class="form-control" id="inputPassword">
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-4 col-form-label">Ingresa la cantidad de cuotas</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control" id="inputPassword">
+                </div>
             </div>
-        </div>
-        <div class="d-grid gap-2 col-6 mx-auto mb-4">
-            <button class="btn btn-info" type="button">Simular</button>
-        </div>
+            <div class="d-grid gap-2 col-4 mx-auto mb-4">
+                <button class="btn btn-info" type="submit">Simular</button>
+            </div>
+        </form>
+        
         <!-- <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Información ingresada</label>
             <ul class="list-group list-group-horizontal w-100">
@@ -52,8 +55,8 @@
                 <li class="list-group-item col">26.4</li>
             </ul>
             <ul class="list-group list-group-horizontal w-100">
-                <li class="list-group-item col">El pago mensual sería:</li>
-                <li class="list-group-item col">$1.840.800</li>
+                <li class="list-group-item col">Pago mensual:</li>
+                <li class="list-group-item col">{{.inputValue}}</li>
             </ul>
         </div>
         <table class="table">

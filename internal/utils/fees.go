@@ -1,11 +1,11 @@
-package main
+package utils
 
 import (
 	"fmt"
 	"strings"
 )
 
-func feesData(principal float64, numberOfPayments int, convertMonthlyInterestRate float64, monthlyPayment float64) {
+func FeesData(principal float64, numberOfPayments int, convertMonthlyInterestRate float64, monthlyPayment float64) {
 	// Print headers
 	headers := []string{"Cuota N°", "Cuota mensual", "Pago a capital", "Pago intereses", "Saldo"}
 	fmt.Printf("%-10s | %-10s | %-10s | %-10s | %-10s\n", headers[0], headers[1], headers[2], headers[3], headers[4])
