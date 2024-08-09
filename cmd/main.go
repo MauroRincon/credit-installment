@@ -9,7 +9,6 @@ import (
 func main() {
 	http.HandleFunc("/", handlers.FormHandler)
 	http.HandleFunc("/calculate", handlers.SubmitHandler)
-	//creditCalculation()
 
 	// Server
 	log.Println("Run server: http://localhost:3000/")

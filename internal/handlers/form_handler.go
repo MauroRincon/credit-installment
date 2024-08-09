@@ -1,8 +1,10 @@
 package handlers
 
 import (
+	"credit-installment/internal/utils"
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
@@ -17,14 +19,37 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SubmitHandler(w http.ResponseWriter, r *http.Request) {
-
 	if r.Method != http.MethodPost {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
 
 	r.ParseForm()
-	inputValue := r.FormValue("inputValue")
+	// Obtener el valor del input como string
+	principalStr := r.FormValue("inputValue")
+	monthlyInterestRateStr := r.FormValue("inputInterestRate")
+	numberOfPaymentsStr := r.FormValue("inputNumberPayments")
+
+	// Convertir el valor de string a float64 o int
+	principal, err := strconv.ParseFloat(principalStr, 64)
+	if err != nil {
+		http.Error(w, "Invalid input value", http.StatusBadRequest)
+		return
+	}
+
+	monthlyInterestRate, err := strconv.ParseFloat(monthlyInterestRateStr, 64)
+	if err != nil {
+		http.Error(w, "Invalid input value", http.StatusBadRequest)
+		return
+	}
+
+	numberOfPayments, err := strconv.Atoi(numberOfPaymentsStr)
+	if err != nil {
+		http.Error(w, "Invalid input value", http.StatusBadRequest)
+		return
+	}
+
+	monthlyPayment, annualInterestRate := utils.CreditCalculation(principal, monthlyInterestRate, numberOfPayments)
 
 	tmpl, err := template.ParseFiles("../templates/index.html")
 	if err != nil {
@@ -33,7 +58,8 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := map[string]interface{}{
-		"inputValue": inputValue,
+		"calculatePayment":   monthlyPayment,
+		"annualInterestRate": annualInterestRate,
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {

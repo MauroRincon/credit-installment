@@ -11,21 +11,21 @@
         <h2>Simulador de Crédito</h2>
         <form action="/calculate" method="post">
             <div class="mb-2 row">
-                <label for="inputPassword" class="col-sm-4 col-form-label">Ingresa el valor del crédito (préstamo)</label>
+                <label for="inputValue" class="col-sm-4 col-form-label">Ingresa el valor del crédito (préstamo)</label>
                 <div class="col-sm-4">
                   <input type="number" class="form-control" id="inputValue" name="inputValue">
                 </div>
             </div>
             <div class="mb-2 row">
-                <label for="inputPassword" class="col-sm-4 col-form-label">Ingresa la tasa de interés mensual</label>
+                <label for="inputInterestRate" class="col-sm-4 col-form-label">Ingresa la tasa de interés mensual</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control" id="inputPassword">
+                  <input type="number" step=".01" class="form-control" id="inputInterestRate" name="inputInterestRate">
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-4 col-form-label">Ingresa la cantidad de cuotas</label>
+                <label for="inputNumberPayments" class="col-sm-4 col-form-label">Ingresa la cantidad de cuotas</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control" id="inputPassword">
+                  <input type="number" class="form-control" id="inputNumberPayments" name="inputNumberPayments">
                 </div>
             </div>
             <div class="d-grid gap-2 col-4 mx-auto mb-4">
@@ -52,11 +52,11 @@
             <label for="exampleFormControlInput1" style="font-weight:bold" class="form-label">RESULTADOS</label>
             <ul class="list-group list-group-horizontal w-100">
                 <li class="list-group-item col">Tasa de interés efectiva anual %:</li>
-                <li class="list-group-item col">26.4</li>
+                <li class="list-group-item col">{{.annualInterestRate}}</li>
             </ul>
             <ul class="list-group list-group-horizontal w-100">
                 <li class="list-group-item col">Pago mensual:</li>
-                <li class="list-group-item col">{{.inputValue}}</li>
+                <li class="list-group-item col">{{.calculatePayment}}</li>
             </ul>
         </div>
         <table class="table">
