@@ -70,27 +70,15 @@
                 </tr>
             </thead>
             <tbody>
+                {{range .Rows}}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <th scope="row">{{.CuotaNo}}</th>
+                    <td>{{.CuotaMensual}}</td>
+                    <td>{{.PagoCapital}}</td>
+                    <td>{{.PagoIntereses}}</td>
+                    <td>{{.Saldo}}</td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry the Bird</td>
-                    <td>Thornton</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                </tr>
+                {{end}}
             </tbody>
         </table>
     </div>

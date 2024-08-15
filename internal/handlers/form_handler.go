@@ -5,7 +5,22 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
+
+type PaymentRow struct {
+	CuotaNo       int
+	CuotaMensual  string
+	PagoCapital   string
+	PagoIntereses string
+	Saldo         string
+}
+
+type TableData struct {
+	Rows []PaymentRow
+}
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("../templates/index.html")
@@ -25,12 +40,12 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	r.ParseForm()
-	// Obtener el valor del input como string
+	// Get input value as a string
 	principalStr := r.FormValue("inputValue")
 	monthlyInterestRateStr := r.FormValue("inputInterestRate")
 	numberOfPaymentsStr := r.FormValue("inputNumberPayments")
 
-	// Convertir el valor de string a float64 o int
+	// Convert to float or int
 	principal, err := strconv.ParseFloat(principalStr, 64)
 	if err != nil {
 		http.Error(w, "Invalid input value", http.StatusBadRequest)
@@ -50,6 +65,31 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	monthlyPayment, annualInterestRate := utils.CreditCalculation(principal, monthlyInterestRate, numberOfPayments)
+	p := message.NewPrinter(language.English)
+	formattedmonthlyPayment := p.Sprintf("$%.0f", monthlyPayment)
+	formattedAnnualRate := strconv.FormatFloat(annualInterestRate, 'f', 2, 64)
+
+	// Table with monthly rates
+	convertMonthlyInterestRate := monthlyInterestRate / 100
+
+	remainingBalance := principal
+
+	var rows []PaymentRow
+
+	for i := 1; i <= numberOfPayments; i++ {
+		interestPayment := remainingBalance * convertMonthlyInterestRate
+		principalPayment := monthlyPayment - interestPayment
+		remainingBalance -= principalPayment
+
+		// Add values to the rows
+		rows = append(rows, PaymentRow{
+			CuotaNo:       i,
+			CuotaMensual:  p.Sprintf("$%.0f", monthlyPayment),
+			PagoCapital:   p.Sprintf("$%.0f", principalPayment),
+			PagoIntereses: p.Sprintf("$%.0f", interestPayment),
+			Saldo:         p.Sprintf("$%.0f", remainingBalance),
+		})
+	}
 
 	tmpl, err := template.ParseFiles("../templates/index.html")
 	if err != nil {
@@ -58,8 +98,9 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := map[string]interface{}{
-		"calculatePayment":   monthlyPayment,
-		"annualInterestRate": annualInterestRate,
+		"calculatePayment":   formattedmonthlyPayment,
+		"annualInterestRate": formattedAnnualRate,
+		"Rows":               rows,
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {
