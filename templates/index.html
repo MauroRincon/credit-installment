@@ -48,6 +48,7 @@
                 <li class="list-group-item col">72</li>
             </ul>
         </div> -->
+
         <div class="mb-3">
             <label for="exampleFormControlInput1" style="font-weight:bold" class="form-label">RESULTADOS</label>
             <ul class="list-group list-group-horizontal w-100">
@@ -55,8 +56,12 @@
                 <li class="list-group-item col">{{.annualInterestRate}}</li>
             </ul>
             <ul class="list-group list-group-horizontal w-100">
-                <li class="list-group-item col">Pago mensual:</li>
+                <li class="list-group-item col">Cuota mensual:</li>
                 <li class="list-group-item col">{{.calculatePayment}}</li>
+            </ul>
+            <ul class="list-group list-group-horizontal w-100">
+                <li class="list-group-item col">Total pagado:</li>
+                <li class="list-group-item col">{{.totalPaid}}</li>
             </ul>
         </div>
         <table class="table">
@@ -70,7 +75,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{range .Rows}}
+                {{range .rows}}
                 <tr>
                     <th scope="row">{{.CuotaNo}}</th>
                     <td>{{.CuotaMensual}}</td>

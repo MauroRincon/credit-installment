@@ -73,7 +73,8 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	convertMonthlyInterestRate := monthlyInterestRate / 100
 
 	remainingBalance := principal
-
+	totalPaid := monthlyPayment * float64(numberOfPayments)
+	formattedTotalPaid := p.Sprintf("$%.0f", totalPaid)
 	var rows []PaymentRow
 
 	for i := 1; i <= numberOfPayments; i++ {
@@ -89,6 +90,8 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 			PagoIntereses: p.Sprintf("$%.0f", interestPayment),
 			Saldo:         p.Sprintf("$%.0f", remainingBalance),
 		})
+
+		totalPaid += monthlyPayment
 	}
 
 	tmpl, err := template.ParseFiles("../templates/index.html")
@@ -100,7 +103,8 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 	data := map[string]interface{}{
 		"calculatePayment":   formattedmonthlyPayment,
 		"annualInterestRate": formattedAnnualRate,
-		"Rows":               rows,
+		"totalPaid":          formattedTotalPaid,
+		"rows":               rows,
 	}
 
 	if err := tmpl.Execute(w, data); err != nil {
