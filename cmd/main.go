@@ -24,7 +24,7 @@ func main() {
 	}
 }
 
-// ------- DEVELOPMENT---------
+// ------- DEVELOPMENT ---------
 // func main() {
 // 	http.HandleFunc("/", handlers.FormHandler)
 // 	http.HandleFunc("/calculate", handlers.SubmitHandler)
