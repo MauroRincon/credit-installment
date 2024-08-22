@@ -23,7 +23,7 @@ type TableData struct {
 }
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("../templates/index.html")
+	tmpl, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -94,7 +94,7 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 		totalPaid += monthlyPayment
 	}
 
-	tmpl, err := template.ParseFiles("../templates/index.html")
+	tmpl, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
