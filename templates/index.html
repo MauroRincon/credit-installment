@@ -67,8 +67,7 @@
         <table class="table">
             <thead>
                 <tr>
-                <th scope="col">Cuota N°</th>
-                <th scope="col">Cuota mensual</th>
+                <th scope="col">N°</th>
                 <th scope="col">Pago a capital</th>
                 <th scope="col">Pago intereses</th>
                 <th scope="col">Saldo</th>
@@ -77,11 +76,10 @@
             <tbody>
                 {{range .rows}}
                 <tr>
-                    <th scope="row">{{.CuotaNo}}</th>
-                    <td>{{.CuotaMensual}}</td>
-                    <td>{{.PagoCapital}}</td>
-                    <td>{{.PagoIntereses}}</td>
-                    <td>{{.Saldo}}</td>
+                    <th scope="row">{{.quotaNo}}</th>
+                    <td>{{.capitalPayment}}</td>
+                    <td>{{.interestsPayment}}</td>
+                    <td>{{.balance}}</td>
                 </tr>
                 {{end}}
             </tbody>
