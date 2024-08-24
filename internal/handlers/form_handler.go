@@ -11,10 +11,10 @@ import (
 )
 
 type PaymentRow struct {
-	quotaNo          int
-	capitalPayment   string
-	interestsPayment string
-	balance          string
+	QuotaNo          int
+	CapitalPayment   string
+	InterestsPayment string
+	Balance          string
 }
 
 type TableData struct {
@@ -83,10 +83,10 @@ func SubmitHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Add values to the rows
 		rows = append(rows, PaymentRow{
-			quotaNo:          i,
-			capitalPayment:   p.Sprintf("$%.0f", principalPayment),
-			interestsPayment: p.Sprintf("$%.0f", interestPayment),
-			balance:          p.Sprintf("$%.0f", remainingBalance),
+			QuotaNo:          i,
+			CapitalPayment:   p.Sprintf("$%.0f", principalPayment),
+			InterestsPayment: p.Sprintf("$%.0f", interestPayment),
+			Balance:          p.Sprintf("$%.0f", remainingBalance),
 		})
 
 		totalPaid += monthlyPayment
